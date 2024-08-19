@@ -15,3 +15,27 @@ Você deve implementar as seguintes regras, tendo em mente que novas regras apar
 - Não deve haver mais de 3 transações em um intervalo de 2 minutos: alta-frequência-pequeno-intervalo
 - Não deve haver mais de 2 transações semelhantes (mesmo valor e comerciante) em um intervalo de 2 minutos: transação duplicada
 
+# Casos de Uso
+
+### CU01 - Criar Conta
+Descrição: O usuário cria uma conta associada a um cartão de crédito.
+
+**Fluxo Principal:**
+- O usuário envia os dados para criar a conta.
+- O sistema valida e cria a conta.
+- O sistema confirma a criação da conta.
+
+### CU02 - Autorizar Transação
+
+Descrição: O sistema decide se uma transação de cartão de crédito é autorizada ou negada.
+**Fluxo Principal:**
+- Uma transação é solicitada.
+- O sistema verifica as regras de negócio (limite, status do cartão, frequência, duplicidade).
+- O sistema autoriza ou nega a transação.
+
+### CU03 - Notificar Usuário
+
+Descrição: O sistema notifica o usuário sobre o status da transação.
+**Fluxo Principal:**
+- A transação é processada.
+- O sistema envia uma notificação ao usuário.
