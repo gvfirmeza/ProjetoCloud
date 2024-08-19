@@ -30,7 +30,6 @@ Você deve implementar as seguintes regras, tendo em mente que novas regras apar
 - O sistema valida os dados fornecidos.
 - O sistema cria a conta e vincula o cartão de crédito.
 - O sistema retorna uma confirmação de sucesso ao usuário.
-<br/>
 **Pós-condição:** A conta é criada e armazenada no banco de dados, com o cartão associado.
 
 ### CU02 - Autorização de Transação
@@ -49,7 +48,6 @@ Você deve implementar as seguintes regras, tendo em mente que novas regras apar
 - O sistema verifica a duplicidade da transação (mesmo valor e comerciante).
 - O sistema autoriza ou nega a transação com base nas regras.
 - O sistema retorna o resultado ao comerciante.
-<br/>
 **Pós-condição:** A transação é registrada como autorizada ou negada.
 
 ### CU03 - Notificação de Transação
@@ -65,6 +63,5 @@ Você deve implementar as seguintes regras, tendo em mente que novas regras apar
 - O sistema cria uma notificação com os detalhes da transação.
 - O sistema envia a notificação ao usuário.
 - O usuário recebe a notificação e pode visualizar os detalhes.
-<br/>
 **Pós-condição:** O usuário é informado sobre o status da transação.
 
