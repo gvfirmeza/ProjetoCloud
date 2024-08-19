@@ -17,25 +17,42 @@ Você deve implementar as seguintes regras, tendo em mente que novas regras apar
 
 # Casos de Uso
 
-### CU01 - Criar Conta
-Descrição: O usuário cria uma conta associada a um cartão de crédito.
+### CU01 - Criação de Conta
 
+**Descrição:** Esse caso de uso trata da criação de uma nova conta no sistema, vinculando um cartão de crédito ao usuário e definindo os parâmetros iniciais, como limite disponível e status do cartão.
+**Ator(es):** Usuário, Sistema de Backend.
+**Pré-condição:** O usuário deve fornecer as informações necessárias para a criação da conta, como nome, CPF, tipo de conta, e dados do cartão.
 **Fluxo Principal:**
-- O usuário envia os dados para criar a conta.
-- O sistema valida e cria a conta.
-- O sistema confirma a criação da conta.
+- O usuário solicita a criação de uma nova conta.
+- O sistema valida os dados fornecidos.
+- O sistema cria a conta e vincula o cartão de crédito.
+- O sistema retorna uma confirmação de sucesso ao usuário.
+**Pós-condição:** A conta é criada e armazenada no banco de dados, com o cartão associado.
 
-### CU02 - Autorizar Transação
+### CU02 - Autorização de Transação
 
-Descrição: O sistema decide se uma transação de cartão de crédito é autorizada ou negada.
+**Descrição:** Esse caso de uso lida com a autorização de uma transação de cartão de crédito para uma conta existente, verificando se a transação atende às regras de negócio definidas.
+**Ator(es):** Comerciante, Sistema de Autorização.
+**Pré-condição:** A conta e o cartão devem existir e estar ativos.
 **Fluxo Principal:**
-- Uma transação é solicitada.
-- O sistema verifica as regras de negócio (limite, status do cartão, frequência, duplicidade).
-- O sistema autoriza ou nega a transação.
+- O comerciante envia uma solicitação de transação.
+- O sistema verifica o status do cartão (ativo/inativo).
+- O sistema verifica o limite disponível da conta.
+- O sistema verifica a frequência das transações no intervalo de 2 minutos.
+- O sistema verifica a duplicidade da transação (mesmo valor e comerciante).
+- O sistema autoriza ou nega a transação com base nas regras.
+- O sistema retorna o resultado ao comerciante.
+**Pós-condição:** A transação é registrada como autorizada ou negada.
 
-### CU03 - Notificar Usuário
+### CU03 - Notificação de Transação
 
-Descrição: O sistema notifica o usuário sobre o status da transação.
+**Descrição:** Esse caso de uso trata do envio de notificações ao usuário sobre o status das transações realizadas, incluindo transações aprovadas, negadas e quaisquer problemas identificados.
+**Ator(es):** Usuário, Sistema de Notificação.
+**Pré-condição:** O sistema deve ter registrado uma transação (autorizada ou negada).
 **Fluxo Principal:**
-- A transação é processada.
-- O sistema envia uma notificação ao usuário.
+- O sistema identifica a necessidade de enviar uma notificação.
+- O sistema cria uma notificação com os detalhes da transação.
+- O sistema envia a notificação ao usuário.
+- O usuário recebe a notificação e pode visualizar os detalhes.
+**Pós-condição:** O usuário é informado sobre o status da transação.
+
