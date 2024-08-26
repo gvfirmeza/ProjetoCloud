@@ -117,3 +117,64 @@ Você deve implementar as seguintes regras, tendo em mente que novas regras apar
 
 - Descrição: A transação é negada se houver mais de 2 transações com o mesmo valor e comerciante em um intervalo de 2 minutos.
 - Justificativa de Negação: "Transação duplicada."
+
+## Script de Criação do Banco de Dados
+
+```sql
+CREATE TABLE Tipo_Conta (
+    ID_Tipo_Conta INT PRIMARY KEY,
+    Tipo_Conta VARCHAR(50)
+);
+
+CREATE TABLE Cartao (
+    ID_Cartao INT PRIMARY KEY,
+    Numero_Cartao VARCHAR(16),
+    Data_Validade DATE,
+    CVV VARCHAR(3)
+);
+
+CREATE TABLE Usuario (
+    ID_Usuario INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Data_Criacao DATE,
+    CPF VARCHAR(11),
+    ID_Tipo_Conta INT,
+    ID_Cartao INT,
+    FOREIGN KEY (ID_Tipo_Conta) REFERENCES Tipo_Conta(ID_Tipo_Conta),
+    FOREIGN KEY (ID_Cartao) REFERENCES Cartao(ID_Cartao)
+);
+
+CREATE TABLE Comerciante (
+    ID_Comerciante INT PRIMARY KEY,
+    CNPJ VARCHAR(14),
+    Razao_Social VARCHAR(100)
+);
+
+CREATE TABLE Notificacao (
+    ID_Notificacao INT PRIMARY KEY,
+    Data_Notificacao DATE,
+    Tipo_Notificacao VARCHAR(50)
+);
+
+CREATE TABLE Transacao (
+    ID_Transacao INT PRIMARY KEY,
+    Tipo VARCHAR(50),
+    Valor DECIMAL(10, 2),
+    Data_Hora DATETIME,
+    Status VARCHAR(50),
+    ID_Comerciante INT,
+    ID_Cartao INT,
+    ID_Notificacao INT,
+    FOREIGN KEY (ID_Comerciante) REFERENCES Comerciante(ID_Comerciante),
+    FOREIGN KEY (ID_Cartao) REFERENCES Cartao(ID_Cartao),
+    FOREIGN KEY (ID_Notificacao) REFERENCES Notificacao(ID_Notificacao)
+);
+
+CREATE TABLE Autorizacao (
+    ID_Autorizacao INT PRIMARY KEY,
+    ID_Transacao INT,
+    Data_Autorizacao DATE,
+    Status_Autorizacao VARCHAR(50),
+    FOREIGN KEY (ID_Transacao) REFERENCES Transacao(ID_Transacao)
+);
+```
