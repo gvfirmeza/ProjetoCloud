@@ -178,3 +178,5 @@ CREATE TABLE Autorizacao (
     FOREIGN KEY (ID_Transacao) REFERENCES Transacao(ID_Transacao)
 );
 ```
+
+[Link Dontpad](https://dontpad.com/ibmec-projetocloud-20242)
