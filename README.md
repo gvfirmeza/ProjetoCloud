@@ -118,7 +118,7 @@ Você deve implementar as seguintes regras, tendo em mente que novas regras apar
 - Descrição: A transação é negada se houver mais de 2 transações com o mesmo valor e comerciante em um intervalo de 2 minutos.
 - Justificativa de Negação: "Transação duplicada."
 
-## Script de Criação do Banco de Dados
+# Script de Criação do Banco de Dados
 
 ```sql
 CREATE TABLE Tipo_Conta (
