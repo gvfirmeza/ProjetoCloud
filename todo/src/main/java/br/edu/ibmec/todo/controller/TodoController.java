@@ -1,6 +1,7 @@
 package br.edu.ibmec.todo.controller;
 
 import br.edu.ibmec.todo.model.Todo;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,13 +39,13 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<Todo> saveTodo(@RequestBody Todo todo) {
+    public ResponseEntity<Todo> saveTodo(@Valid @RequestBody Todo todo) {
         Todos.add(todo);
         return new ResponseEntity<>(todo, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Todo> updateTodo(@PathVariable("id") int id, @RequestBody Todo novosDados) {
+    public ResponseEntity<Todo> updateTodo(@PathVariable("id") int id,@Valid @RequestBody Todo novosDados) {
         Todo todoASerAtualizado = null;
 
         for (Todo todo : Todos) {
