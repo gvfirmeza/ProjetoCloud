@@ -1,26 +1,26 @@
 package br.edu.ibmec.todo.model;
 
-import jakarta.validation.constraints.Min;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class Todo {
 
-    @NotNull(message = "Campo id obrigatório")
     private int id;
-
-    @NotBlank(message = "Campo name obrigatório")
+    
+    @NotBlank(message = "Campo nome é obrigatório")
     private String name;
 
-    @NotBlank(message = "Campo owner obrigatório")
+    @NotBlank(message = "Campo responsável é obrigatório")
     private String owner;
 
-    @NotBlank(message = "Campo status obrigatório")
+    @NotBlank(message = "Campo status é obrigatório")
     private String status;
 
-    @NotBlank(message = "Campo description obrigatório")
+    @NotBlank(message = "Campo descrição é obrigatório")
     private String description;
 
 }

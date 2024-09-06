@@ -1,94 +1,72 @@
 package br.edu.ibmec.todo.controller;
 
+
 import br.edu.ibmec.todo.model.Todo;
+import br.edu.ibmec.todo.service.TodoService;
 import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/todo")
 public class TodoController {
-    private static List<Todo> Todos = new ArrayList<>();
+    
+    @Autowired
+    private TodoService service;
 
     @GetMapping
     public ResponseEntity<List<Todo>> getTodo() {
-        return new ResponseEntity(Todos, HttpStatus.OK);
+        return new ResponseEntity(service.getAllItems(), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Todo> getTodoById(@PathVariable("id") int id) {
-        Todo response = null;
+        Todo response = service.getItem(id);
 
-        for (Todo todo : Todos) {
-            if (todo.getId() == id) {
-                response = todo;
-                break;
-            }
-        }
-
-        if (response == null) {
+        if (response == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
 
-        return new ResponseEntity<>(response,HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
+
     @PostMapping
-    public ResponseEntity<Todo> saveTodo(@Valid @RequestBody Todo todo) {
-        Todos.add(todo);
-        return new ResponseEntity<>(todo, HttpStatus.CREATED);
+    public ResponseEntity<Todo> saveTodo(@Valid @RequestBody Todo todo) throws Exception {
+        Todo response = service.createTodo(todo);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Todo> updateTodo(@PathVariable("id") int id,@Valid @RequestBody Todo novosDados) {
-        Todo todoASerAtualizado = null;
+    public ResponseEntity<Todo> updateTodo(@PathVariable("id") int id, @Valid @RequestBody Todo novosDados) {
 
-        for (Todo todo : Todos) {
-            if (todo.getId() == id) {
-                todoASerAtualizado = todo;
-                break;
-            }
-        }
+        Todo todoASerAtualizado = service.getItem(id);
 
-        if (todoASerAtualizado == null) {
+        if (todoASerAtualizado == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        
+        Todo response = service.updateTodo(id, todoASerAtualizado);
 
-        Todos.remove(todoASerAtualizado);
-
-        todoASerAtualizado.setId(novosDados.getId());
-        todoASerAtualizado.setName(novosDados.getName());
-        todoASerAtualizado.setStatus(novosDados.getStatus());
-        todoASerAtualizado.setDescription(novosDados.getDescription());
-        todoASerAtualizado.setOwner(novosDados.getOwner());
-
-        Todos.add(todoASerAtualizado);
-
-        return new ResponseEntity<>(todoASerAtualizado, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping({"/id"})
+    @DeleteMapping("{id}")
     public ResponseEntity<Todo> deleteTodo(@PathVariable("id") int id) {
-        Todo todoASerExcluido = null;
-
-        for (Todo todo : Todos) {
-            if (todo.getId() == id) {
-                todoASerExcluido = todo;
-                break;
-            }
-        }
-
-        if (todoASerExcluido == null) {
+        
+        if (service.getItem(id) == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        
+        service.deleteTodo(id);
 
-        Todos.remove(todoASerExcluido);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<>(todoASerExcluido, HttpStatus.NO_CONTENT);
     }
 }
