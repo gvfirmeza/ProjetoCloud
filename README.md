@@ -118,6 +118,12 @@ Você deve implementar as seguintes regras, tendo em mente que novas regras apar
 - Descrição: A transação é negada se houver mais de 2 transações com o mesmo valor e comerciante em um intervalo de 2 minutos.
 - Justificativa de Negação: "Transação duplicada."
 
+# Fluxograma - Criação de Conta 
+![image](https://github.com/user-attachments/assets/546db496-81f9-4a9a-9f45-cc258b33114d)
+
+# Fluxograma - Transação Financeira
+![image](https://github.com/user-attachments/assets/8cdb3edf-4a6f-4477-a981-21cddf3fd7c6)
+
 # Modelagem do Banco de Dados
 
 ![image](https://github.com/user-attachments/assets/540bb2b8-014b-4b12-bada-cabcd236e166)
