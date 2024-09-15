@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class User {
 
@@ -22,4 +24,5 @@ public class User {
     @NotBlank(message = "Campo data nascimento obrigatório")
     private String birth_date;
 
+    private List<Card> cards;
 }
