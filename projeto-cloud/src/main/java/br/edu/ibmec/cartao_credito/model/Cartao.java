@@ -32,4 +32,3 @@ public class Cartao {
     @JoinColumn(referencedColumnName = "id", name = "cartao_id")
     public List<Transacao> transacoes;
 }
-
