@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.ibmec.cartao_credito.exception.UsuarioException;
 import br.edu.ibmec.cartao_credito.model.Cartao;
 import br.edu.ibmec.cartao_credito.model.Usuario;
 import br.edu.ibmec.cartao_credito.repository.CartaoRepository;
@@ -22,15 +23,15 @@ public class UsuarioService {
     @Autowired
     private CartaoRepository cartaoRepository;
 
-    public Usuario criarUsuario(String nome, String cpf, LocalDateTime dataNascimento) {
-        Usuario usuario = new Usuario();
-        
-        //TODO: Validar CPF
-        usuario.setCpf(cpf);
-        
-        usuario.setNome(nome);
-        usuario.setDataNascimento(dataNascimento);
-        
+    public Usuario criarUsuario(Usuario usuario) throws UsuarioException {
+       
+        Optional<Usuario> optUsuario = this.usuarioRepository.findUsuarioByCpf(usuario.getCpf());
+
+        if (optUsuario.isPresent()) {
+            throw new UsuarioException("Usuario com cpf informado já cadastrado");
+        }
+
+
         //INSERE NA BASE DE DADOS
         usuarioRepository.save(usuario);
 

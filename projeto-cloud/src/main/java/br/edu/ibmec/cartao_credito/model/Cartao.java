@@ -3,6 +3,8 @@ package br.edu.ibmec.cartao_credito.model;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
