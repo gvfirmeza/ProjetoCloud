@@ -1,29 +1,31 @@
 package br.edu.ibmec.cartao_credito.model;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+
 import lombok.Data;
 
 @Data
 @Entity
 public class Transacao {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
-    
-    @Column
-    public LocalDateTime dataTransacao;
+    private int id;
 
     @Column
-    public double valor;
+    private LocalDateTime dataTransacao;
 
     @Column
-    public String comerciante;
-    
+    private double valor;
+
+    @Column
+    private String comerciante;
+
+    @ManyToOne
+    @JoinColumn(name = "cartao_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Cartao cartao;
 }

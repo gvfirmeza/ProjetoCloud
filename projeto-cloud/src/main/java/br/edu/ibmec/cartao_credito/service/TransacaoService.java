@@ -1,6 +1,7 @@
 package br.edu.ibmec.cartao_credito.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,26 +24,31 @@ public class TransacaoService {
     private AutorizacaoService autorizacaoService;
 
     public Transacao autorizacaoTransacao(Cartao cartao, double valor, String comerciante) throws Exception {
-        // Verifica autorização
         autorizacaoService.verificarAutorizacao(cartao, valor);
-
-        // Verifica regras antifraude
         autorizacaoService.verificarAntifraude(cartao, valor, comerciante);
 
-        // Criar nova transação
         Transacao transacao = new Transacao();
         transacao.setComerciante(comerciante);
         transacao.setDataTransacao(LocalDateTime.now());
         transacao.setValor(valor);
+        transacao.setCartao(cartao);
 
-        // Salvar transação e atualizar limite
         repository.save(transacao);
         cartao.setLimite(cartao.getLimite() - valor);
         cartao.getTransacoes().add(transacao);
 
-        // Atualizar o cartão
         cartaoRepository.save(cartao);
 
         return transacao;
+    }
+
+
+    public Transacao buscarTransacaoPorId(int id) {
+        Optional<Transacao> transacao = repository.findById(id);
+        if (transacao.isPresent()) {
+            return transacao.get();
+        } else {
+            return null;
+        }
     }
 }

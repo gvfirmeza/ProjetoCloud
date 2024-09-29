@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class ValidationErrorAdvice {
+
+    // Tratamento para erros de validação de campos
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -24,6 +26,7 @@ public class ValidationErrorAdvice {
         return response;
     }
 
+    // Tratamento para exceções de usuário
     @ExceptionHandler(UsuarioException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -36,6 +39,16 @@ public class ValidationErrorAdvice {
         return response;
     }
 
-
-
+    // Tratamento para exceções de transação
+    @ExceptionHandler(TransacaoException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ValidationMessageErrors validationHandlerTransacao(TransacaoException e) {
+        ValidationMessageErrors response = new ValidationMessageErrors();
+        ValidationError error = new ValidationError();
+        error.setField("transacao");
+        error.setMessage(e.getMessage());
+        response.getErrors().add(error);
+        return response;
+    }
 }

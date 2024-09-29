@@ -31,8 +31,6 @@ public class UsuarioService {
             throw new UsuarioException("Usuario com cpf informado já cadastrado");
         }
 
-
-        //INSERE NA BASE DE DADOS
         usuarioRepository.save(usuario);
 
         return usuario;
@@ -43,27 +41,21 @@ public class UsuarioService {
     }
 
     public void associarCartao(Cartao cartao, int id) throws Exception {
-        //Buscar usuario
 
         Usuario usuario = this.findUsuario(id);
 
-        //Valida se encontrou o usuario
         if (usuario == null) {
             throw new Exception("Não encontrei o usuario");
         }
 
-        //valida se o cartão está ativo
         if (cartao.getAtivo() == false) {
             throw new Exception("Não posso associar um cartão inativo ao usuário");
         }
 
-        //Associa um cartão a um usuario
         usuario.associarCartao(cartao);
 
-        //Salvar cartao de credito do usuario;
         cartaoRepository.save(cartao);
 
-        //Atualiza o usuário com a referencia do cartao
         usuarioRepository.save(usuario);
 
     }
@@ -76,7 +68,5 @@ public class UsuarioService {
 
         return usuario.get();
 
-
     }
-    
 }
