@@ -193,3 +193,7 @@ CREATE TABLE Autorizacao (
 <br />
 [Repo Professor](https://github.com/rafaelcruz-net/ibmec-projeto-cloud-20242)
 
+## Integrantes do Grupo
+- Gustavo Raia
+- Guilherme Firmeza
+- Gabriel Firmamento
